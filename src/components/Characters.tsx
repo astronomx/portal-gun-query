@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import Image from "next/image";
 import style from "@/styles/characters.module.css"
+import NotFound from "./NotFound";
 
 type TCharacter = {
     __typename?: "Character";
@@ -46,9 +47,16 @@ export default function Characters() {
     const { loading, error, data } = useQuery(GET_CHARACTERS)
     const [page, setPage] = useState<number>(1);
 
-    if (loading) return <div>Loading characters</div>
+    if (loading) return <Image 
+        src={"/images/spinning-portal.gif"} 
+        height={150} 
+        width={150}
+        alt="Spinning portal"
+        loading="eager"
+    />
+
     if (error) return <div>Error: cannot load characters</div>
-    if (!data?.characters?.results) return <div>No characters found</div>
+    if (!data?.characters?.results) return <NotFound />
 
     return (
         <div className={style.container}>
@@ -61,6 +69,7 @@ export default function Characters() {
                             height={250} 
                             width={220} 
                             className={style.image}
+                            loading="eager"
                         />
 
                         <div className={style.cardContent}>
