@@ -4,6 +4,9 @@ import { gql, type TypedDocumentNode } from "@apollo/client";
 import { useQuery } from "@apollo/client/react";
 import { useState } from "react";
 
+import Image from "next/image";
+import style from "@/styles/characters.module.css"
+
 type TCharacter = {
     __typename?: "Character";
     id: string;
@@ -48,11 +51,30 @@ export default function Characters() {
     if (!data?.characters?.results) return <div>No characters found</div>
 
     return (
-        <div>
+        <div className={style.container}>
             {
                 data.characters.results.map((character) => (
-                    <div className="" key={character.id}>
-                        <p>{character.name}</p>
+                    <div className={style.card} key={character.id}>
+                        <Image
+                            src={character.image}
+                            alt={`Image of ${character.name}`}
+                            height={250} 
+                            width={220} 
+                            className={style.image}
+                        />
+
+                        <div className={style.cardContent}>
+                            <p className={style.characterName}>{character.name}</p>
+
+                            <div className={style.cardContentInfo}>
+                                <p className={style.characterSpecies}>{character.species}</p>
+                                -
+                                <p className={character.status == "Dead" ? style.characterDead :
+                                    character.status == "Alive" ? style.characterAlive :
+                                    character.status == "unknown" ? style.character : ""
+                                }>{character.status}</p>
+                            </div>
+                        </div>
                     </div>
                 ))
             }
