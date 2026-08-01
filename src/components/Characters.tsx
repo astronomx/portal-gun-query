@@ -53,6 +53,7 @@ export default function Characters() {
         width={150}
         alt="Spinning portal"
         loading="eager"
+        unoptimized
     />
 
     if (error) return <div>Error: cannot load characters</div>
