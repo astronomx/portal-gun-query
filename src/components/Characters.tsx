@@ -26,7 +26,7 @@ type GetCharactersQuery = {
 
 type GetCharactersQueryVariables = Record<string, never>;
 
-const GET_CHARACTERS: TypedDocumentNode<
+export const GET_CHARACTERS: TypedDocumentNode<
     GetCharactersQuery,
     GetCharactersQueryVariables
 > = gql`
