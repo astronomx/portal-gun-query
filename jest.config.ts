@@ -14,7 +14,7 @@ const config: Config = {
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   moduleNameMapper: {
     // ...
-    '^@/components/(.*)$': '<rootDir>/components/$1',
+    '^@/components/(.*)$': '<rootDir>/src/components/$1',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts']
 }

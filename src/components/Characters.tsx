@@ -8,7 +8,11 @@ import Image from "next/image";
 import style from "@/styles/characters.module.css"
 import NotFound from "./NotFound";
 
+// Type for individual characters
 type TCharacter = {
+    // The __typename field returns the object type's name as a String
+    // GraphQL clients use an object's __typename for many purposes, such as 
+    // to determine which type was returned by a field that can return multiple types
     __typename?: "Character";
     id: string;
     name: string;
@@ -17,6 +21,7 @@ type TCharacter = {
     species: string;
 };
 
+// Type for all characters and putting them in an array
 type GetCharactersQuery = {
     characters: {
         __typename?: "Characters";
@@ -26,6 +31,9 @@ type GetCharactersQuery = {
 
 type GetCharactersQueryVariables = Record<string, never>;
 
+// GraphQl querying the characterlist
+// Make sure the query follows structure of the body you're requesting
+// GraphQl is about selecting specific fields on objects
 export const GET_CHARACTERS: TypedDocumentNode<
     GetCharactersQuery,
     GetCharactersQueryVariables
