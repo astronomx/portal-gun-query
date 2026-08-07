@@ -10,13 +10,14 @@
   --button-secondary-border: #ebebeb;
 
   display: flex;
+  flex-direction: row;
   flex: 1;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-family: var(--font-geist-sans);
   background-color: var(--background);
   color: var(--text-primary);
+  padding: 32px 0;
 }
 
 .main {
@@ -35,7 +36,6 @@
     gap: 32px;
     flex-wrap: wrap;
     max-width: 800;
-    padding: 32px 0;
 }
 
 .card {

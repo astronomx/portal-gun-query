@@ -2,11 +2,14 @@
 
 import { gql, type TypedDocumentNode } from "@apollo/client";
 import { useQuery } from "@apollo/client/react";
-import { useState } from "react";
 
 import Image from "next/image";
 import style from "@/styles/characters.module.css"
 import NotFound from "./NotFound";
+
+type CharacterPageProps = {
+    current: string
+}
 
 // Type for individual characters
 type TCharacter = {
@@ -29,7 +32,9 @@ type GetCharactersQuery = {
     } | null;
 };
 
-type GetCharactersQueryVariables = Record<string, never>;
+type GetCharactersQueryVariables = {
+    page: string
+};
 
 // GraphQl querying the characterlist
 // Make sure the query follows structure of the body you're requesting
@@ -38,8 +43,12 @@ export const GET_CHARACTERS: TypedDocumentNode<
     GetCharactersQuery,
     GetCharactersQueryVariables
 > = gql`
-    query GetCharacters {
-        characters(page: 1) {
+    query GetCharacters($page: Int) {
+        characters(page: $page) {
+            info { 
+                next 
+                prev
+            }
             results {
                 id
                 name
@@ -51,9 +60,8 @@ export const GET_CHARACTERS: TypedDocumentNode<
     }
 `;
 
-export default function Characters() {
-    const { loading, error, data } = useQuery(GET_CHARACTERS)
-    const [page, setPage] = useState<number>(1);
+export default function Characters({ current }: CharacterPageProps) {
+    const { loading, error, data } = useQuery(GET_CHARACTERS, { variables: { page: current } })
 
     if (loading) return <Image 
         src={"/images/spinning-portal.gif"} 
